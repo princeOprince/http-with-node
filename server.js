@@ -3,7 +3,7 @@ const http = require('http');
 const server = http.createServer();
 
 server.on('request', (request, response) => {
-    console.log('This is an incoming request');
+    console.log(request.method, request.url);
 });
 
 server.listen(8080);
