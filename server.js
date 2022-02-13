@@ -11,6 +11,8 @@ server.on('request', (request, response) => {
         const { id } = parsedUrl.query;
         const metadata = services.fetchSpeakers(id);
         console.log(metadata);
+        console.log("-------------------------------");
+        console.log(request.headers);
     }
     // console.log(parsedUrl);
 });
