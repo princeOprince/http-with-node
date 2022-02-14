@@ -17,7 +17,11 @@ server.on('request', (request, response) => {
     if (request.method === 'GET' && parsedUrl.pathname === '/metadata') {
         const { id } = parsedUrl.query;
         const metadata = services.fetchSpeakers(id);
-        console.log(metadata);
+        response.setHeader('Content-Type', 'application/json');
+        response.statusCode = 200;
+        const serialisedJSON = JSON.stringify(metadata);
+        response.write(serialisedJSON);
+        response.end();
         console.log("-------------------------------");
         console.log(request.headers);
     }
@@ -33,7 +37,7 @@ server.on('request', (request, response) => {
         response.end();
     }
     // #endregion
-    
+
     // #region ADD REQUEST BODY
     /*
     const body = [];
