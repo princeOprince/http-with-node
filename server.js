@@ -1,6 +1,7 @@
 const http = require('http');
 const url = require('url');
 const services = require('./services');
+const jsonBody = require('body/json');
 
 
 const server = http.createServer();
@@ -15,6 +16,8 @@ server.on('request', (request, response) => {
         console.log(request.headers);
     }
 
+    // #region ADD REQUEST BODY
+    /*
     const body = [];
     request.on('data', (chunk) => {
         body.push(chunk);
@@ -24,7 +27,18 @@ server.on('request', (request, response) => {
         console.log(name);
         services.createSpeaker(name);
     })
+    */
+    //  #endregion
     // console.log(parsedUrl);
+
+    jsonBody(request, response, (err, body) => {
+        if (err) {
+            console.log(err)
+        }
+        else {
+            services.createSpeaker(body['userName']);
+        }
+    });
 });
 
 server.listen(8080);
