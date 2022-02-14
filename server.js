@@ -6,11 +6,11 @@ const services = require('./services');
 const jsonBody = require('body/json');
 
 
-// const server = http.createServer();
-const server = https.createServer({
-    key: fs.readFileSync('./key.pem'),
-    cert: fs.readFileSync('./cert.pem')
-});
+const server = http.createServer();
+// const server = https.createServer({
+//     key: fs.readFileSync('./key.pem'),
+//     cert: fs.readFileSync('./cert.pem')
+// });
 
 server.on('request', (request, response) => {
     const parsedUrl = url.parse(request.url, true);
@@ -21,7 +21,19 @@ server.on('request', (request, response) => {
         console.log("-------------------------------");
         console.log(request.headers);
     }
-
+    // #region SET HEADERS AND STATUS CODES
+    else {
+        // response.statusCode = 404;
+        // response.setHeader('X-Powered-By', 'Node');
+        // response.setHeader('Hello', 'World');
+        response.writeHead(404, {
+            'X-Powered-By': 'Node',
+            'Content-Type': 'application/json'
+        });
+        response.end();
+    }
+    // #endregion
+    
     // #region ADD REQUEST BODY
     /*
     const body = [];
@@ -50,8 +62,8 @@ server.on('request', (request, response) => {
     */
     // #endregion
 
-    response.end('This was served with https');
+    // response.end('This was served with https');
 });
 
-// server.listen(8080);
-server.listen(443);
+server.listen(8080);
+// server.listen(443);
