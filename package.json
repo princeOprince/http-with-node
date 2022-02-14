@@ -1,0 +1,19 @@
+{
+  "dependencies": {
+    "axios": "^0.26.0",
+    "body": "^5.1.0",
+    "formidable": "^2.0.1",
+    "nodemon": "^2.0.15"
+  },
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "name": "http-with-node",
+  "version": "1.0.0",
+  "main": "server.js",
+  "devDependencies": {},
+  "keywords": [],
+  "author": "Prince O Prince",
+  "license": "ISC",
+  "description": ""
+}
