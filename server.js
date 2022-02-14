@@ -1,10 +1,16 @@
 const http = require('http');
+const https = require('https');
+const fs = require('fs');
 const url = require('url');
 const services = require('./services');
 const jsonBody = require('body/json');
 
 
-const server = http.createServer();
+// const server = http.createServer();
+const server = https.createServer({
+    key: fs.readFileSync('./key.pem'),
+    cert: fs.readFileSync('./cert.pem')
+});
 
 server.on('request', (request, response) => {
     const parsedUrl = url.parse(request.url, true);
@@ -31,6 +37,8 @@ server.on('request', (request, response) => {
     //  #endregion
     // console.log(parsedUrl);
 
+    //  #region USE THE JSON BODY PACKAGE
+    /*
     jsonBody(request, response, (err, body) => {
         if (err) {
             console.log(err)
@@ -39,6 +47,11 @@ server.on('request', (request, response) => {
             services.createSpeaker(body['userName']);
         }
     });
+    */
+    // #endregion
+
+    response.end('This was served with https');
 });
 
-server.listen(8080);
+// server.listen(8080);
+server.listen(443);
