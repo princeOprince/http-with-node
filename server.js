@@ -40,11 +40,23 @@ server.on('request', (request, response) => {
     // #endregion
     //  #region USE THE FORMIDABLE PACKAGE
     else if (request.method === 'POST' && parsedUrl.pathname === '/upload') {
-        const form = new formidable.IncomingForm();
+        const form = new formidable.IncomingForm({
+            uploadDir: __dirname,
+            keepExtensions: true,
+            multiples: true,
+            maxFileSize: 5 *  1024 * 1024,
+            encoding: 'utf-8',
+            maxFields: 20
+        });
         form.parse(request, (err, fields, files) => {
-            console.log('\n fields:');
-            console.log(fields);
-            console.log('\n files:');
+            if (err) {
+                response.statusCode = 500;
+                response.end('Error!');
+                console.log(err);
+            }
+            // console.log('\n fields:');
+            // console.log(fields);
+            // console.log('\n files:');
             console.log(files);
             response.statusCode = 200;
             response.end("Success!");
