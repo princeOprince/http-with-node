@@ -33,6 +33,7 @@ server.on('request', (request, response) => {
                 console.log(err)
             }
             else {
+                console.log(body);
                 services.createSpeaker(body['userName']);
             }
         });

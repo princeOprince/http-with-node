@@ -1,9 +1,25 @@
-// const http = require('http');
-const https = require('https');
+const http = require('http');
+// const https = require('https');
 
-// const request = http.request(
-const request = https.get(
-    'https://www.google.com',
+const data = JSON.stringify({
+    userName: 'princeOprince'
+});
+
+const options = {
+    hostname: 'localhost',
+    port: 8080,
+    path: '/users',
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+        'Content-Length': data.length
+    }
+}
+
+const request = http.request(
+// const request = https.get(
+    // 'https://www.google.com',
+    options,
     (response) => {
         console.log(`statusCode: ${response.statusCode}`);
         console.log(response.headers);
@@ -19,5 +35,7 @@ request.on('error', (err) => {
     console.log(err);
 });
 
+request.write(data);
+
 //  This method will be invoked automatically when https is used
-// request.end();
+request.end();
