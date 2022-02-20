@@ -1,5 +1,5 @@
-const http = require('http');
-// const https = require('https');
+// const http = require('http');
+const https = require('https');
 
 const data = JSON.stringify({
     userName: 'princeOprince'
@@ -7,16 +7,19 @@ const data = JSON.stringify({
 
 const options = {
     hostname: 'localhost',
-    port: 8080,
+    // port: 8080,
+    port: 443,
     path: '/users',
     method: 'POST',
     headers: {
         'Content-Type': 'application/json',
-        'Content-Length': data.length
+        'Content-Length': data.length,
+        'Authorization': Buffer.from('myUsername' + ':' + 'myPassword').toString('base64')
     }
 }
 
-const request = http.request(
+// const request = http.request(
+const request = https.request(
 // const request = https.get(
     // 'https://www.google.com',
     options,
