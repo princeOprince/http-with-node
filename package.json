@@ -6,7 +6,8 @@
     "nodemon": "^2.0.15"
   },
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+    "request": "nodemon request.js"
   },
   "name": "http-with-node",
   "version": "1.0.0",
